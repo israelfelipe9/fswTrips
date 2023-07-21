@@ -1,18 +1,16 @@
 import TripItem from "@/components/TripItem";
+import { prisma } from "@/lib/prisma";
 import { Trip } from "@prisma/client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
-const RecommendedTrips = () => {
-  const [data, setData] = useState();
-  useEffect(() => {
-    const getdata = async () => {
-      const cdata = await fetch("http://localhost:3000/api/hello")
-        .then((res) => res.json())
-        .then((data) => setData(data));
-      console.log(data);
-    };
-    getdata();
-  }, []);
+async function getTrips() {
+  const trips = await prisma.trip.findMany({});
+  return trips;
+}
+
+const RecommendedTrips = async () => {
+  const data = await getTrips();
+  console.log(data);
 
   return (
     <div className="container mx-auto p-5">
