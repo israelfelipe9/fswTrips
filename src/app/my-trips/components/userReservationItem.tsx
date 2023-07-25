@@ -11,10 +11,14 @@ import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
 interface UserReservationItemProps {
   reservation: Prisma.TripReservationGetPayload<{ include: { trip: true } }>;
+  fetchReservations: () => void;
   // Use this include to tell typescript that the trip is included in the reservation
 }
 
-const UserReservationItem = ({ reservation }: UserReservationItemProps) => {
+const UserReservationItem = ({
+  reservation,
+  fetchReservations,
+}: UserReservationItemProps) => {
   const router = useRouter();
 
   const { trip } = reservation;
@@ -35,7 +39,7 @@ const UserReservationItem = ({ reservation }: UserReservationItemProps) => {
     toast.success("Reserva cancelada com sucesso", {
       position: "bottom-center",
     });
-    router.refresh();
+    fetchReservations();
   };
 
   return (
