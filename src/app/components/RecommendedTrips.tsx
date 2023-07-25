@@ -10,7 +10,6 @@ async function getTrips() {
 
 const RecommendedTrips = async () => {
   const data = await getTrips();
-  console.log(data);
 
   return (
     <div className="container mx-auto p-5">
