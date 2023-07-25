@@ -1,17 +1,24 @@
 "use client";
 
-import Button from "@/components/Button";
-import { Trip } from "@prisma/client";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
-import Image from "next/image";
-import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { ptBR } from "date-fns/locale";
+import { format } from "date-fns";
+import { useSearchParams } from "next/navigation";
+import { useSession } from "next-auth/react";
+import Image from "next/image";
 import ReactCountryFlag from "react-country-flag";
+
+import Button from "@/components/Button";
+
+import { Trip } from "@prisma/client";
 
 const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
   const [trip, setTrip] = useState<Trip | null>();
   const [totalPrice, setTotalPrice] = useState<number | null>(null);
+
+  const router = useRouter();
+  const { status } = useSession();
 
   const searchParams = useSearchParams();
 
@@ -31,6 +38,9 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
       setTrip(trip);
       setTotalPrice(totalPrice);
     };
+    if (status === "unauthenticated") {
+      router.push("/");
+    }
     getTrip();
   }, []);
 
@@ -61,9 +71,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
             </h2>
             <div className="flex items-center gap-1">
               <ReactCountryFlag countryCode={trip.countryCode} svg />
-              <p className="text-xs text-grayPrimary underline">
-                {trip.location}
-              </p>
+              <p className="text-xs text-grayPrimary mt-1">{trip.location}</p>
             </div>
           </div>
         </div>
@@ -71,8 +79,8 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
           Informações sobre o preço
         </h3>
         <div className="flex justify-between mt-1">
-          <p className="text-primaryDarker">Total:</p>
-          <p className="font-medium">R$ {totalPrice}</p>
+          <p className="text-primaryDarker text-lg">Total:</p>
+          <p className="font-medium text-lg">R$ {totalPrice}</p>
         </div>
       </div>
       <div className="flex flex-col mt-5 text-primaryDarker">

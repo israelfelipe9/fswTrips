@@ -17,6 +17,8 @@ const Header = () => {
     signOut();
   };
 
+  console.log(status);
+
   const handleMenuClick = () => setMenuIsOpen(!menuIsOpen);
 
   return (
@@ -30,7 +32,9 @@ const Header = () => {
         <button
           className="text-primary text-sm font-semibold"
           onClick={handleLoginClick}
-        ></button>
+        >
+          Login
+        </button>
       )}
       {status === "authenticated" && data.user && (
         <div className="flex items-center gap-3 border-grayLighter border border-solid rounded-full p-2 relative">
