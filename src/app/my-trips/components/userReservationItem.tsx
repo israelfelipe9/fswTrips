@@ -1,18 +1,42 @@
-import { Prisma, TripReservation, User } from "@prisma/client";
+"use client";
+
 import React from "react";
 import Image from "next/image";
 import ReactCountryFlag from "react-country-flag";
+import { Prisma } from "@prisma/client";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 import Button from "@/components/Button";
-
 interface UserReservationItemProps {
   reservation: Prisma.TripReservationGetPayload<{ include: { trip: true } }>;
   // Use this include to tell typescript that the trip is included in the reservation
 }
 
 const UserReservationItem = ({ reservation }: UserReservationItemProps) => {
+  const router = useRouter();
+
   const { trip } = reservation;
+
+  const handleDelete = async () => {
+    try {
+      const res = await fetch(`/api/trips/reservation/${reservation.id}`, {
+        method: "DELETE",
+      });
+      if (!res.ok) {
+        return toast.error("Erro ao cancelar reserva", {
+          position: "bottom-center",
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
+    toast.success("Reserva cancelada com sucesso", {
+      position: "bottom-center",
+    });
+    router.refresh();
+  };
 
   return (
     <div>
@@ -67,7 +91,7 @@ const UserReservationItem = ({ reservation }: UserReservationItemProps) => {
             </p>
           </div>
 
-          <Button variant="danger" className="mt-5">
+          <Button variant="danger" className="mt-5" onClick={handleDelete}>
             Cancelar
           </Button>
         </div>
