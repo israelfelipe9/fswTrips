@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { isBefore } from "date-fns";
+import { differenceInDays, isBefore } from "date-fns";
 import NextAuth from "next-auth/next";
 import { NextResponse } from "next/server";
 
@@ -70,6 +70,10 @@ export async function POST(request: Request) {
   return new NextResponse(
     JSON.stringify({
       success: true,
+      trip,
+      totalPrice:
+        differenceInDays(new Date(req.endDate), new Date(req.startDate)) *
+        Number(trip.pricePerDay),
     })
   );
 }

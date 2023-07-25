@@ -3,8 +3,9 @@ import Button from "@/components/Button";
 import DatePicker from "@/components/DatePicker";
 import Input from "@/components/input";
 import { Trip } from "@prisma/client";
-import { differenceInDays } from "date-fns";
+import { differenceInDays, max } from "date-fns";
 import { tr } from "date-fns/locale";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { Controller, useForm } from "react-hook-form";
 import { start } from "repl";
@@ -39,6 +40,8 @@ const TripReservation = ({
     setError,
   } = useForm<TripReservationForm>();
 
+  const router = useRouter();
+
   const startDate = watch("startDate");
   const endDate = watch("endDate");
 
@@ -64,20 +67,23 @@ const TripReservation = ({
         type: "manual",
         message: "Data já reservada.",
       });
-    }
-
-    if (res?.error?.code === "INVALID_START_DATE") {
+    } else if (res?.error?.code === "INVALID_START_DATE") {
       setError("startDate", {
         type: "manual",
         message: "Data inválida.",
       });
-    }
-
-    if (res?.error?.code === "INVALID_END_DATE") {
+    } else if (res?.error?.code === "INVALID_END_DATE") {
       setError("endDate", {
         type: "manual",
         message: "Data inválida.",
       });
+    } else {
+      // Quando passar de todos os erros redireciona pra confirmação com os dados preenchidos
+      router.push(
+        `/trips/${tripId}/confirmation?startDate=${data.startDate?.toISOString()}&endDate=${data.endDate?.toISOString()}&guests=${
+          data.guests
+        }`
+      );
     }
   };
 
@@ -135,6 +141,10 @@ const TripReservation = ({
           required: {
             value: true,
             message: "Número de hóspedes é obrigatório.",
+          },
+          max: {
+            value: maxGuests,
+            message: `Número de hóspedes deve ser menor ou igual a ${maxGuests}.`,
           },
         })}
         placeholder={`Número de hóspedes (max: ${maxGuests})`}
