@@ -24,8 +24,8 @@ export async function POST(request: Request) {
   } = req;
 
   const session = await stripe.checkout.sessions.create({
-    success_url: "http://localhost:3000/",
-    cancel_url: "http://localhost:3000/",
+    success_url: process.env.HOST_URL!,
+    cancel_url: process.env.HOST_URL!,
     metadata: {
       tripId,
       userId: (userSession?.user as any)?.id,
