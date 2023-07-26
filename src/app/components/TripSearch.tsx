@@ -5,8 +5,32 @@ import Input from "@/components/input";
 import Button from "@/components/Button";
 import React from "react";
 import CurrencyInput from "react-currency-input-field";
+import { useForm, Controller } from "react-hook-form";
+import { useRouter } from "next/navigation";
+
+interface TripSearchForm {
+  text: string;
+  startDate: Date | null;
+  budget: number;
+}
 
 const TripSearch = () => {
+  const router = useRouter();
+
+  const {
+    control,
+    formState: { errors },
+    register,
+    handleSubmit,
+  } = useForm<TripSearchForm>();
+
+  const onSubmit = (data: TripSearchForm) => {
+    console.log(data);
+    router.push(
+      `/trips/search?text=${data.text}&startDate=${data.startDate}&budget=${data.budget}`
+    );
+  };
+
   return (
     <div className="container mx-auto p-5 bg-search-background bg-cover bg-center bg-no-repeat">
       <h1 className="font-semibold text-2xl text-primaryDarker text-center">
@@ -14,17 +38,48 @@ const TripSearch = () => {
       </h1>
 
       <div className="flex flex-col gap-4 mt-5">
-        <Input placeholder="Onde você quer ir?" />
+        <Input
+          placeholder="Onde você quer ir?"
+          error={!!errors.text?.message}
+          errorMessage={errors.text?.message}
+          {...register("text", {
+            required: {
+              value: true,
+              message: "Campo obrigatório",
+            },
+          })}
+        />
+
         <div className="flex gap-4">
-          <DatePicker
-            placeholderText="Data de ida"
-            onChange={() => {}}
-            className="w-full"
+          <Controller
+            name="startDate"
+            control={control}
+            render={({ field }) => (
+              <DatePicker
+                placeholderText="Data de ida"
+                onChange={field.onChange}
+                selected={field.value}
+                className="w-full"
+                minDate={new Date()}
+              />
+            )}
           />
-          <CurrencyInput placeholder="Orçamento máximo" />
+
+          <Controller
+            name="budget"
+            control={control}
+            render={({ field }) => (
+              <CurrencyInput
+                placeholder="Orçamento máximo"
+                onValueChange={field.onChange}
+                value={field.value}
+                onBlur={field.onBlur}
+              />
+            )}
+          />
         </div>
 
-        <Button>Buscar</Button>
+        <Button onClick={() => handleSubmit(onSubmit)()}>Buscar</Button>
       </div>
     </div>
   );
