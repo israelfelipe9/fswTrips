@@ -15,7 +15,7 @@ const QuickSeach = () => {
 
       <div className="flex w-full justify-between mt-5">
         <Link
-          href={"/trips/search?text=hotel&startDate=undefined&budget=undefined"}
+          href={"/trips/search?text=Hotel&startDate=undefined&budget=undefined"}
         >
           <div className="flex flex-col items-center gap-1">
             <Image width={35} height={35} src="/hotel-icon.png" alt="Hotel" />
@@ -24,7 +24,7 @@ const QuickSeach = () => {
         </Link>
         <Link
           href={
-            "/trips/search?text=fazenda&startDate=undefined&budget=undefined"
+            "/trips/search?text=Fazenda&startDate=undefined&budget=undefined"
           }
         >
           <div className="flex flex-col items-center gap-1">
@@ -34,7 +34,7 @@ const QuickSeach = () => {
         </Link>
 
         <Link
-          href={"/trips/search?text=chale&startDate=undefined&budget=undefined"}
+          href={"/trips/search?text=Chalé&startDate=undefined&budget=undefined"}
         >
           <div className="flex flex-col items-center gap-1">
             <Image width={35} height={35} src="/cottage-icon.png" alt="Hotel" />
@@ -44,7 +44,7 @@ const QuickSeach = () => {
 
         <Link
           href={
-            "/trips/search?text=pousada&startDate=undefined&budget=undefined"
+            "/trips/search?text=Pousada&startDate=undefined&budget=undefined"
           }
         >
           <div className="flex flex-col items-center gap-1">
