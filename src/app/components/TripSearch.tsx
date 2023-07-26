@@ -25,7 +25,6 @@ const TripSearch = () => {
   } = useForm<TripSearchForm>();
 
   const onSubmit = (data: TripSearchForm) => {
-    console.log(data);
     router.push(
       `/trips/search?text=${data.text}&startDate=${data.startDate}&budget=${data.budget}`
     );

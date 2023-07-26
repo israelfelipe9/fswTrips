@@ -28,7 +28,6 @@ const Trips = () => {
 
       const trips = await response.json();
       setTrips(trips);
-      console.log(trips);
     };
     fetchTrips();
   }, []);
