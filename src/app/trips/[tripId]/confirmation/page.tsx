@@ -76,7 +76,7 @@ const TripConfirmation = ({ params }: { params: { tripId: string } }) => {
     });
 
     if (!res.ok) {
-      return toast.error("Erro ao realizar reserva!", {
+      return toast.error("Erro ao realizar reserva", {
         position: "bottom-center",
       });
     }
