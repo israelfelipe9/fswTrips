@@ -1,6 +1,26 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Travel booking system
+
+This project was created using Next13
+
+See the project in production [HERE](https://fsw-trips-hazel.vercel.app/)
+
+# Tech Stack
+
+![Next.js + NextAuth.js + Prisma + Tailwind CSS](https://blog.y-temp4.com/i/entry/nextjs-nextauthjs-prisma-tailwind-css.png)
+
+Integrated with [Stripe](https://stripe.com/en-br) to process payments
+
+Integrated with [Supabase](https://supabase.com/) to store data in a postgres database in the cloud
+
+Integrated with [next auth](https://next-auth.js.org/) to authenticate users using Google account
+
+Deployed in [vercel](https://vercel.com)
+
+### The system is responsive and can be used on mobile devices and desktops
 
 ## Getting Started
+
+This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 First, run the development server:
 
@@ -32,3 +52,7 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+
+## License
+
+Full stack club from [Felipe Rocha](https://github.com/felipemotarocha)
