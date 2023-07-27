@@ -33,7 +33,7 @@ const Trips = () => {
   }, []);
 
   return (
-    <div className="container mx-auto flex flex-col items-center lg:items-start p-5">
+    <div className="container mx-auto flex flex-col items-center lg:items-start p-5 lg:pt-10">
       <div>
         <h1 className="text-primaryDarker font-semibold text-xl lg:text-[2.5rem] lg:text-left">
           Hospedagens encontradas
